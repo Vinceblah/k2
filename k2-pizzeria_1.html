@@ -100,25 +100,10 @@
       gap: 12px;
     }
 
-    .brand img {
-      height: 58px;
+    .brand svg {
+      height: 50px;
       width: auto;
-      border-radius: 50%;
-    }
-
-    .brand-text {
-      line-height: 1.2;
-    }
-
-    .brand-text strong {
-      font-size: 1.4rem;
-      color: var(--brand-dark);
-      display: block;
-    }
-
-    .brand-text span {
-      font-size: 0.95rem;
-      color: var(--muted);
+      flex-shrink: 0;
     }
 
     .nav-links {
@@ -158,6 +143,30 @@
 
     .call-btn:hover {
       background: var(--brand-dark);
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 0;
+      margin-left: auto;
+    }
+
+    .burger span {
+      display: block;
+      width: 22px;
+      height: 3px;
+      margin: 0 auto;
+      background: var(--brand-dark);
+      border-radius: 2px;
     }
 
     /* ---------------- HERO ---------------- */
@@ -235,6 +244,41 @@
       font-size: 1.15rem;
       color: var(--muted);
       max-width: 720px;
+    }
+
+    /* ---------------- ABOUT ---------------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .about-pic {
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .about-pic svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .about-pic figcaption {
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      background: var(--surface-2);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 760px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ---------------- HOURS ---------------- */
@@ -390,10 +434,6 @@
       border-bottom: 2px solid var(--line);
     }
 
-    table.pizza-table th.num-col {
-      width: 42px;
-    }
-
     table.pizza-table th.price-col {
       width: 88px;
       text-align: right;
@@ -407,11 +447,6 @@
 
     table.pizza-table tr:nth-child(even) td {
       background: rgba(140, 22, 32, 0.035);
-    }
-
-    table.pizza-table td.num-col {
-      font-weight: 700;
-      color: var(--muted);
     }
 
     table.pizza-table td.price-col {
@@ -578,19 +613,95 @@
         grid-template-columns: 1fr;
       }
 
+      header {
+        position: sticky;
+      }
+
       .nav {
-        justify-content: center;
-        text-align: center;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        position: relative;
       }
 
       .brand {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .brand svg {
+        height: 42px;
+      }
+
+      header .call-btn {
+        order: 2;
+        width: 46px;
+        height: 46px;
+        padding: 0;
         justify-content: center;
+        border-radius: 8px;
+        gap: 0;
+        flex-shrink: 0;
+      }
+
+      header .call-icon {
+        font-size: 1.35rem;
+        line-height: 1;
+      }
+
+      header .call-text {
+        display: none;
+      }
+
+      .burger {
+        display: flex;
+        order: 3;
+        margin-left: 10px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 10px);
+        right: 20px;
+        width: 220px;
+        flex-direction: column;
+        gap: 0;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        box-shadow: 0 10px 28px rgba(36, 26, 26, 0.18);
+        overflow: hidden;
+        z-index: 60;
+      }
+
+      header.nav-open .nav-links {
+        display: flex;
+      }
+
+      .nav-links li {
         width: 100%;
       }
 
-      table.pizza-table th.num-col,
-      table.pizza-table td.num-col {
-        display: none;
+      .nav-links li:not(:last-child) a {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 15px 18px;
+        border-bottom: none;
+      }
+
+      .nav-links a:hover {
+        background: var(--surface);
+      }
+
+      .hero .facts {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
       }
     }
   </style>
@@ -598,22 +709,34 @@
 
 <body>
 
-  <header>
+  <header id="siteHeader">
     <div class="nav">
       <div class="brand">
-        <img src="k2-logo.png" alt="K2 Pizzéria logó">
-        <div class="brand-text">
-          <strong>K2 Pizzéria</strong>
-          <span>Tótkomlós</span>
-        </div>
+        <svg viewBox="0 0 150 54" role="img" aria-label="K2 Pizzéria logó" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 42 L28 9 L48 42 Z" fill="#8c1620" />
+          <path d="M8 42 L48 42" stroke="#6b0f17" stroke-width="3.5" stroke-linecap="round" />
+          <circle cx="22" cy="32" r="2.3" fill="#fbf3e6" />
+          <circle cx="33" cy="34" r="2.3" fill="#fbf3e6" />
+          <circle cx="28" cy="24" r="2.1" fill="#fbf3e6" />
+          <text x="58" y="34" font-family="'Atkinson Hyperlegible', Arial, sans-serif" font-weight="700" font-size="28"
+            fill="#6b0f17">K2</text>
+          <text x="58" y="48" font-family="'Atkinson Hyperlegible', Arial, sans-serif" font-weight="700" font-size="10"
+            letter-spacing="2" fill="#5b4a45">PIZZÉRIA</text>
+        </svg>
       </div>
-      <ul class="nav-links">
+      <a href="tel:+36309397085" class="call-btn" aria-label="Hívás: 06 30 939 7085">
+        <span class="call-icon" aria-hidden="true">📞</span>
+        <span class="call-text">06 30 939 7085</span>
+      </a>
+      <button class="burger" id="burgerBtn" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
         <li><a href="#rolunk">Rólunk</a></li>
         <li><a href="#nyitvatartas">Nyitvatartás</a></li>
         <li><a href="#etlap">Étlap</a></li>
         <li><a href="#kapcsolat">Kapcsolat</a></li>
       </ul>
-      <a href="tel:+36309397085" class="call-btn">📞 06 30 939 7085</a>
     </div>
   </header>
 
@@ -624,7 +747,7 @@
         a Szabadság tér 2. szám alatt.</p>
       <ul class="facts">
         <li>📍 Tótkomlós, Szabadság tér 2.</li>
-        <li>📞 06 30 939 7085</li>
+        <li>📞 <a href="tel:+36309397085">06 30 939 7085</a></li>
       </ul>
       <div class="hero-actions">
         <a href="tel:+36309397085" class="call-btn">Hívjon és rendeljen</a>
@@ -634,13 +757,43 @@
   </div>
 
   <section id="rolunk">
-    <div class="wrap">
-      <h2>Rólunk</h2>
-      <p class="lead">A K2 Pizzéria pizzái eredeti olasz recept alapján, lassú, hideg kelesztésű, kovászos tésztából,
-        kézzel nyújtva, kővön sülnek. A tészta mellett hamburgereket, tortillákat és hot-dogot is kínálunk — mindent
-        friss alapanyagokból készítünk, helyben.</p>
-      <p class="lead">Ajándékozásra K2 Pizzéria ajándékutalványt is kínálunk, 2 000, 3 000, 5 000 és 10 000 forintos
-        értékben.</p>
+    <div class="wrap about-grid">
+      <div>
+        <h2>Rólunk</h2>
+        <p class="lead">A K2 Pizzéria pizzái eredeti olasz recept alapján, lassú, hideg kelesztésű, kovászos tésztából,
+          kézzel nyújtva, kővön sülnek. A tészta mellett hamburgereket, tortillákat és hot-dogot is kínálunk — mindent
+          friss alapanyagokból készítünk, helyben.</p>
+        <p class="lead">Ajándékozásra K2 Pizzéria ajándékutalványt is kínálunk, 2 000, 3 000, 5 000 és 10 000 forintos
+          értékben.</p>
+      </div>
+      <figure class="about-pic">
+        <svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg" role="img"
+          aria-label="Kővön sült pizza, illusztráció">
+          <rect width="480" height="360" fill="#f4e8d4" />
+          <!-- oven -->
+          <path d="M60 300 Q60 150 240 130 Q420 150 420 300 Z" fill="#e6d8c0" />
+          <path d="M100 300 Q105 190 240 172 Q375 190 380 300 Z" fill="#3a2620" />
+          <ellipse cx="240" cy="300" rx="140" ry="18" fill="#c9a25a" opacity="0.5" />
+          <!-- oven mouth glow -->
+          <ellipse cx="240" cy="255" rx="95" ry="55" fill="#3a2620" />
+          <ellipse cx="240" cy="262" rx="80" ry="42" fill="#8c1620" />
+          <ellipse cx="240" cy="266" rx="60" ry="30" fill="#e2672b" />
+          <!-- pizza on peel -->
+          <circle cx="240" cy="264" r="46" fill="#e8b04a" />
+          <circle cx="240" cy="264" r="40" fill="#f0c869" />
+          <circle cx="222" cy="252" r="6" fill="#b3121c" />
+          <circle cx="256" cy="250" r="6" fill="#b3121c" />
+          <circle cx="248" cy="276" r="6" fill="#b3121c" />
+          <circle cx="226" cy="278" r="5" fill="#4a7a44" />
+          <circle cx="260" cy="266" r="5" fill="#4a7a44" />
+          <rect x="150" y="258" width="90" height="12" rx="4" fill="#8a5a2e" />
+          <!-- chimney flame flecks -->
+          <circle cx="200" cy="210" r="3" fill="#f0955c" opacity="0.8" />
+          <circle cx="270" cy="200" r="2.4" fill="#f0955c" opacity="0.7" />
+          <circle cx="240" cy="185" r="2" fill="#f0955c" opacity="0.6" />
+        </svg>
+        <figcaption>A K2 Pizzéria kemencéje — kővön, hagyományos módon sülnek a pizzák.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -677,292 +830,252 @@
         <summary>Pizzák <span class="chev">⌄</span></summary>
         <div class="details-body">
           <p class="details-note">Normál pizza kb. 28 cm, nagy pizza kb. 32 cm átmérőjű. Az „ÚJ" jelölésű és a csak 32
-            cm-es méretben kapható tételeket külön jelöltük. Calzone formában is kérhető.</p>
+            cm-es méretben kapható tételeket külön jelöltük. Calzone formában is kérhető. <strong>Kiszállítás: 400 Ft /
+              cím.</strong></p>
           <table class="pizza-table">
             <tr>
-              <th class="num-col">#</th>
               <th>Pizza</th>
               <th class="price-col">28 cm</th>
               <th class="price-col">32 cm</th>
             </tr>
             <tr>
-              <td class="num-col">1</td>
-              <td><span class="p-name">Rózsa</span><span class="p-desc">szósz, paradicsom, sajt</span></td>
+              <td><span class="p-name">1. Rózsa</span><span class="p-desc">szósz, paradicsom, sajt</span></td>
               <td class="price-col">2 650 Ft</td>
               <td class="price-col">2 900 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">2</td>
-              <td><span class="p-name">Liget</span><span class="p-desc">szósz, gomba, sajt</span></td>
+              <td><span class="p-name">2. Liget</span><span class="p-desc">szósz, gomba, sajt</span></td>
               <td class="price-col">2 650 Ft</td>
               <td class="price-col">2 900 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">3</td>
-              <td><span class="p-name">Horgász csali</span><span class="p-desc">szósz, kukorica, sajt</span></td>
+              <td><span class="p-name">3. Horgász csali</span><span class="p-desc">szósz, kukorica, sajt</span></td>
               <td class="price-col">2 650 Ft</td>
               <td class="price-col">2 900 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">4</td>
-              <td><span class="p-name">GreenPeace</span><span class="p-desc">szósz, brokkoli, sajt</span></td>
+              <td><span class="p-name">4. GreenPeace</span><span class="p-desc">szósz, brokkoli, sajt</span></td>
               <td class="price-col">2 650 Ft</td>
               <td class="price-col">2 900 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">5</td>
-              <td><span class="p-name">Tavaszi</span><span class="p-desc">szósz, tavaszi zöldségek, sajt</span></td>
+              <td><span class="p-name">5. Tavaszi</span><span class="p-desc">szósz, tavaszi zöldségek, sajt</span></td>
               <td class="price-col">2 650 Ft</td>
               <td class="price-col">2 900 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">6</td>
-              <td><span class="p-name">Hentes</span><span class="p-desc">szósz, sonka, sajt</span></td>
+              <td><span class="p-name">6. Hentes</span><span class="p-desc">szósz, sonka, sajt</span></td>
               <td class="price-col">2 650 Ft</td>
               <td class="price-col">2 900 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">7</td>
-              <td><span class="p-name">Fitness</span><span class="p-desc">szósz, mozzarella</span></td>
+              <td><span class="p-name">7. Fitness</span><span class="p-desc">szósz, mozzarella</span></td>
               <td class="price-col">2 650 Ft</td>
               <td class="price-col">2 900 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">8</td>
-              <td><span class="p-name">Kiskomlós</span><span class="p-desc">szósz, bacon, sajt</span></td>
+              <td><span class="p-name">8. Kiskomlós</span><span class="p-desc">szósz, bacon, sajt</span></td>
               <td class="price-col">2 850 Ft</td>
               <td class="price-col">3 100 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">9</td>
-              <td><span class="p-name">Erdész</span><span class="p-desc">szósz, sonka, gomba, sajt</span></td>
+              <td><span class="p-name">9. Erdész</span><span class="p-desc">szósz, sonka, gomba, sajt</span></td>
               <td class="price-col">2 850 Ft</td>
               <td class="price-col">3 100 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">10</td>
-              <td><span class="p-name">Kanyar</span><span class="p-desc">szósz, pepperoni paprika, fokhagyma,
+              <td><span class="p-name">10. Kanyar</span><span class="p-desc">szósz, pepperoni paprika, fokhagyma,
                   sajt</span></td>
               <td class="price-col">2 650 Ft</td>
               <td class="price-col">2 900 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">11</td>
-              <td><span class="p-name">Füstös</span><span class="p-desc">szósz, füstölt tarja, füstölt sajt</span></td>
+              <td><span class="p-name">11. Füstös</span><span class="p-desc">szósz, füstölt tarja, füstölt sajt</span>
+              </td>
               <td class="price-col">2 850 Ft</td>
               <td class="price-col">3 100 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">12</td>
-              <td><span class="p-name">Viharsarok</span><span class="p-desc">szósz, pepperoni paprika, bacon,
+              <td><span class="p-name">12. Viharsarok</span><span class="p-desc">szósz, pepperoni paprika, bacon,
                   sajt</span></td>
               <td class="price-col">2 850 Ft</td>
               <td class="price-col">3 100 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">13</td>
-              <td><span class="p-name">Öreg Tanyás</span><span class="p-desc">szósz, zöldpaprika, sonka,
+              <td><span class="p-name">13. Öreg Tanyás</span><span class="p-desc">szósz, zöldpaprika, sonka,
                   mozzarella</span></td>
               <td class="price-col">2 850 Ft</td>
               <td class="price-col">3 100 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">14</td>
-              <td><span class="p-name">Jadviga</span><span class="p-desc">szósz, sonka, kukorica, sajt</span></td>
+              <td><span class="p-name">14. Jadviga</span><span class="p-desc">szósz, sonka, kukorica, sajt</span></td>
               <td class="price-col">2 850 Ft</td>
               <td class="price-col">3 100 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">15</td>
-              <td><span class="p-name">Terasz</span><span class="p-desc">szósz, pepperoni paprika, füstölt tarja,
+              <td><span class="p-name">15. Terasz</span><span class="p-desc">szósz, pepperoni paprika, füstölt tarja,
                   sajt</span></td>
               <td class="price-col">2 850 Ft</td>
               <td class="price-col">3 100 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">16</td>
-              <td><span class="p-name">Hawaii</span><span class="p-desc">szósz, sonka, ananász, sajt</span></td>
+              <td><span class="p-name">16. Hawaii</span><span class="p-desc">szósz, sonka, ananász, sajt</span></td>
               <td class="price-col">2 850 Ft</td>
               <td class="price-col">3 100 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">17</td>
-              <td><span class="p-name">Vega Mix</span><span class="p-desc">szósz, paprika, gomba, kukorica, sajt</span>
+              <td><span class="p-name">17. Vega Mix</span><span class="p-desc">szósz, paprika, gomba, kukorica,
+                  sajt</span></td>
+              <td class="price-col">2 850 Ft</td>
+              <td class="price-col">3 100 Ft</td>
+            </tr>
+            <tr>
+              <td><span class="p-name">18. Négysajtos</span><span class="p-desc">szósz, trapista sajt, mozzarella,
+                  füstölt sajt, edami sajt</span></td>
+              <td class="price-col">2 950 Ft</td>
+              <td class="price-col">3 200 Ft</td>
+            </tr>
+            <tr>
+              <td><span class="p-name">19. Laguna</span><span class="p-desc">szósz, ananász, kukorica, sajt</span></td>
+              <td class="price-col">2 950 Ft</td>
+              <td class="price-col">3 200 Ft</td>
+            </tr>
+            <tr>
+              <td><span class="p-name">20. Bánát</span><span class="p-desc">szósz, kolbász, gomba, oliva, friss
+                  paradicsom, sajt</span></td>
+              <td class="price-col">2 950 Ft</td>
+              <td class="price-col">3 200 Ft</td>
+            </tr>
+            <tr>
+              <td><span class="p-name">21. Borsziget</span><span class="p-desc">szósz, sonka, gomba, kukorica,
+                  sajt</span></td>
+              <td class="price-col">2 950 Ft</td>
+              <td class="price-col">3 200 Ft</td>
+            </tr>
+            <tr>
+              <td><span class="p-name">22. Sticky kedvence</span><span class="p-desc">tejfölös alap, virsli karikák,
+                  sajt</span></td>
+              <td class="price-col">2 950 Ft</td>
+              <td class="price-col">3 200 Ft</td>
+            </tr>
+            <tr>
+              <td><span class="p-name">23. Piedone</span><span class="p-desc">szósz, fokhagyma, bab, bacon, sajt</span>
               </td>
-              <td class="price-col">2 850 Ft</td>
-              <td class="price-col">3 100 Ft</td>
-            </tr>
-            <tr>
-              <td class="num-col">18</td>
-              <td><span class="p-name">Négysajtos</span><span class="p-desc">szósz, trapista sajt, mozzarella, füstölt
-                  sajt, edami sajt</span></td>
               <td class="price-col">2 950 Ft</td>
               <td class="price-col">3 200 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">19</td>
-              <td><span class="p-name">Laguna</span><span class="p-desc">szósz, ananász, kukorica, sajt</span></td>
-              <td class="price-col">2 950 Ft</td>
-              <td class="price-col">3 200 Ft</td>
-            </tr>
-            <tr>
-              <td class="num-col">20</td>
-              <td><span class="p-name">Bánát</span><span class="p-desc">szósz, kolbász, gomba, oliva, friss paradicsom,
-                  sajt</span></td>
-              <td class="price-col">2 950 Ft</td>
-              <td class="price-col">3 200 Ft</td>
-            </tr>
-            <tr>
-              <td class="num-col">21</td>
-              <td><span class="p-name">Borsziget</span><span class="p-desc">szósz, sonka, gomba, kukorica, sajt</span>
-              </td>
-              <td class="price-col">2 950 Ft</td>
-              <td class="price-col">3 200 Ft</td>
-            </tr>
-            <tr>
-              <td class="num-col">22</td>
-              <td><span class="p-name">Sticky kedvence</span><span class="p-desc">tejfölös alap, virsli karikák,
-                  sajt</span></td>
-              <td class="price-col">2 950 Ft</td>
-              <td class="price-col">3 200 Ft</td>
-            </tr>
-            <tr>
-              <td class="num-col">23</td>
-              <td><span class="p-name">Piedone</span><span class="p-desc">szósz, fokhagyma, bab, bacon, sajt</span></td>
-              <td class="price-col">2 950 Ft</td>
-              <td class="price-col">3 200 Ft</td>
-            </tr>
-            <tr>
-              <td class="num-col">24</td>
-              <td><span class="p-name">Komlósi Torony</span><span class="p-desc">szósz, sonka, kolbász, erős paprika,
-                  hagyma, sajt</span></td>
+              <td><span class="p-name">24. Komlósi Torony</span><span class="p-desc">szósz, sonka, kolbász, erős
+                  paprika, hagyma, sajt</span></td>
               <td class="price-col">3 050 Ft</td>
               <td class="price-col">3 300 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">25</td>
-              <td><span class="p-name">Négy Évszak</span><span class="p-desc">szósz, sonka, gomba, kolbász, kukorica,
-                  sajt</span></td>
+              <td><span class="p-name">25. Négy Évszak</span><span class="p-desc">szósz, sonka, gomba, kolbász,
+                  kukorica, sajt</span></td>
               <td class="price-col">3 050 Ft</td>
               <td class="price-col">3 300 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">26</td>
-              <td><span class="p-name">Kopáncsi Juhász</span><span class="p-desc">tejfölös alap, túró, erős paprika,
+              <td><span class="p-name">26. Kopáncsi Juhász</span><span class="p-desc">tejfölös alap, túró, erős paprika,
                   bacon, mozzarella</span></td>
               <td class="price-col">3 050 Ft</td>
               <td class="price-col">3 300 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">27</td>
-              <td><span class="p-name">Szegedi Zsivány</span><span class="p-desc">szósz, pick szalámi, hagyma, kukorica,
-                  sajt</span></td>
+              <td><span class="p-name">27. Szegedi Zsivány</span><span class="p-desc">szósz, pick szalámi, hagyma,
+                  kukorica, sajt</span></td>
               <td class="price-col">3 050 Ft</td>
               <td class="price-col">3 300 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">28</td>
-              <td><span class="p-name">Yeti<span class="badge">ÚJ</span></span><span class="p-desc">szósz, virsli,
+              <td><span class="p-name">28. Yeti<span class="badge">ÚJ</span></span><span class="p-desc">szósz, virsli,
                   hamburgerhús, dönnerhús (marha), gyroshús (csirke), pepperoni paprika, lilahagyma, sajt — csak 32
                   cm-es méretben</span></td>
               <td class="price-col">—</td>
               <td class="price-col">4 300 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">29</td>
-              <td><span class="p-name">VegaMax</span><span class="p-desc">szósz, brokkoli, gomba, kukorica, borsó,
+              <td><span class="p-name">29. VegaMax</span><span class="p-desc">szósz, brokkoli, gomba, kukorica, borsó,
                   sajt</span></td>
               <td class="price-col">3 050 Ft</td>
               <td class="price-col">3 300 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">30</td>
-              <td><span class="p-name">Germán</span><span class="p-desc">tejfölös alap, sonka, kukorica, kolbász,
+              <td><span class="p-name">30. Germán</span><span class="p-desc">tejfölös alap, sonka, kukorica, kolbász,
                   sajt</span></td>
               <td class="price-col">3 050 Ft</td>
               <td class="price-col">3 300 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">31</td>
-              <td><span class="p-name">Mexikói</span><span class="p-desc">szósz, kukorica, kolbász, bab, erős paprika,
-                  hagyma, sajt</span></td>
+              <td><span class="p-name">31. Mexikói</span><span class="p-desc">szósz, kukorica, kolbász, bab, erős
+                  paprika, hagyma, sajt</span></td>
               <td class="price-col">3 050 Ft</td>
               <td class="price-col">3 300 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">32</td>
-              <td><span class="p-name">Kalifa Kedvence</span><span class="p-desc">szósz, hambi hús, gomba, paprika,
+              <td><span class="p-name">32. Kalifa Kedvence</span><span class="p-desc">szósz, hambi hús, gomba, paprika,
                   sajt</span></td>
               <td class="price-col">3 050 Ft</td>
               <td class="price-col">3 300 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">33</td>
-              <td><span class="p-name">Cápaledel</span><span class="p-desc">szósz, tenger gyümölcsei, sajt, kagyló,
+              <td><span class="p-name">33. Cápaledel</span><span class="p-desc">szósz, tenger gyümölcsei, sajt, kagyló,
                   fokhagymás olívaolaj</span></td>
               <td class="price-col">3 300 Ft</td>
               <td class="price-col">3 550 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">34</td>
-              <td><span class="p-name">Popeye</span><span class="p-desc">paradicsomos szósz, spenót, mozzarella,
+              <td><span class="p-name">34. Popeye</span><span class="p-desc">paradicsomos szósz, spenót, mozzarella,
                   fokhagymás olívaolaj</span></td>
               <td class="price-col">2 650 Ft</td>
               <td class="price-col">2 900 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">35</td>
-              <td><span class="p-name">Effendi</span><span class="p-desc">szósz, paprika, hagyma, füstölt tarja, füstölt
-                  sajt</span></td>
+              <td><span class="p-name">35. Effendi</span><span class="p-desc">szósz, paprika, hagyma, füstölt tarja,
+                  füstölt sajt</span></td>
               <td class="price-col">3 300 Ft</td>
               <td class="price-col">3 550 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">36</td>
-              <td><span class="p-name">Éhes Tót</span><span class="p-desc">szósz, sonka, kolbász, bacon, füstölt tarja,
-                  hagyma, sajt</span></td>
+              <td><span class="p-name">36. Éhes Tót</span><span class="p-desc">szósz, sonka, kolbász, bacon, füstölt
+                  tarja, hagyma, sajt</span></td>
               <td class="price-col">3 300 Ft</td>
               <td class="price-col">3 550 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">37</td>
-              <td><span class="p-name">K2</span><span class="p-desc">paradicsomos szósz, sonka, kukorica, sajt, tejfölös
-                  szósz, kolbász, paprika, mozzarella</span></td>
+              <td><span class="p-name">37. K2</span><span class="p-desc">paradicsomos szósz, sonka, kukorica, sajt,
+                  tejfölös szósz, kolbász, paprika, mozzarella</span></td>
               <td class="price-col">3 300 Ft</td>
               <td class="price-col">3 550 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">38</td>
-              <td><span class="p-name">Szalamoo</span><span class="p-desc">paradicsomos szósz, szalámi,
+              <td><span class="p-name">38. Szalamoo</span><span class="p-desc">paradicsomos szósz, szalámi,
                   mozzarella</span></td>
               <td class="price-col">2 950 Ft</td>
               <td class="price-col">3 200 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">39</td>
-              <td><span class="p-name">Sárkány lehelete</span><span class="p-desc">paradicsomos szósz, szalámi,
+              <td><span class="p-name">39. Sárkány lehelete</span><span class="p-desc">paradicsomos szósz, szalámi,
                   pepperoni paprika, paprika, chili olaj, mozzarella</span></td>
               <td class="price-col">3 050 Ft</td>
               <td class="price-col">3 300 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">40</td>
-              <td><span class="p-name">Gyros</span><span class="p-desc">szósz, gyroshús, lilahagyma, sajt, fokhagymás
-                  öntet — csak 32 cm-es méretben</span></td>
+              <td><span class="p-name">40. Gyros</span><span class="p-desc">szósz, gyroshús, lilahagyma, sajt,
+                  fokhagymás öntet — csak 32 cm-es méretben</span></td>
               <td class="price-col">—</td>
               <td class="price-col">3 550 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">41</td>
-              <td><span class="p-name">Dönner pizza</span><span class="p-desc">paradicsomos szósz, kebabhús (marha),
+              <td><span class="p-name">41. Dönner pizza</span><span class="p-desc">paradicsomos szósz, kebabhús (marha),
                   lilahagyma, fokhagymás öntet — csak 32 cm-es méretben</span></td>
               <td class="price-col">—</td>
               <td class="price-col">3 750 Ft</td>
             </tr>
             <tr>
-              <td class="num-col">42</td>
-              <td><span class="p-name">Németh Laci kedvence ❤❤</span><span class="p-desc">tejfölös alap, sonka, kolbász,
-                  dupla sajt — csak 32 cm-es méretben</span></td>
+              <td><span class="p-name">42. Németh Laci kedvence ❤❤</span><span class="p-desc">tejfölös alap, sonka,
+                  kolbász, dupla sajt — csak 32 cm-es méretben</span></td>
               <td class="price-col">—</td>
               <td class="price-col">4 200 Ft</td>
             </tr>
@@ -1010,8 +1123,11 @@
               <td class="price-col">650 Ft</td>
             </tr>
           </table>
-          <p class="details-note">Választható szószok: paradicsomos, csípős, tejfölös, ketchup, mustár, majonéz — 400
-            Ft. Chili szórás 200 Ft. Pizzakenyér (fokhagymás vagy sima olívaolajjal) 800 Ft.</p>
+          <ul class="details-note" style="list-style:disc; padding-left:22px; margin-top:16px;">
+            <li>Választható szószok: paradicsomos, csípős, tejfölös, ketchup, mustár, majonéz — 400 Ft</li>
+            <li>Chili szórás — 200 Ft</li>
+            <li>Pizzakenyér (fokhagymás vagy sima olívaolajjal) — 800 Ft</li>
+          </ul>
         </div>
       </details>
 
@@ -1346,16 +1462,31 @@
               számon.</span></div>
         </div>
         <iframe class="map-frame" loading="lazy"
-          src="https://www.google.com/maps?q=T%C3%B3tkoml%C3%B3s%2C+Szabads%C3%A1g+t%C3%A9r+2&output=embed">
+          src="https://www.google.com/maps?q=K2+S%C3%B6r%C3%B6z%C5%91+%C3%A9s+Pizz%C3%A9ria%2C+T%C3%B3tkoml%C3%B3s&output=embed">
         </iframe>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2026 K2 Pizzéria, Tótkomlós — 5940 Tótkomlós, Szabadság tér 2. — 06 30 939 7085</p>
+    <p>© 2026 K2 Pizzéria, Tótkomlós — 5940 Tótkomlós, Szabadság tér 2. — <a href="tel:+36309397085">06 30 939 7085</a>
+    </p>
   </footer>
 
+  <script>
+    var header = document.getElementById('siteHeader');
+    var burger = document.getElementById('burgerBtn');
+    burger.addEventListener('click', function () {
+      var isOpen = header.classList.toggle('nav-open');
+      burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    document.querySelectorAll('#navLinks a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        header.classList.remove('nav-open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
 </body>
 
 </html>
