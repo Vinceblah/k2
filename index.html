@@ -17,8 +17,8 @@
   <header id="siteHeader">
     <div class="nav">
       <div class="brand">
-        <a href="k2-pizzeria.html">
-          <img src="k2-logo.png" alt="K2 Pizzéria logó">
+        <a href="index.html">
+          <img src="k2-logo.webp" alt="K2 Pizzéria logó">
         </a>
       </div>
       <ul class="nav-links" id="navLinks">
@@ -103,8 +103,12 @@
         <summary>Pizzák <span class="chev">⌄</span></summary>
         <div class="details-body">
           <p class="details-note">Normál pizza kb. 28 cm, nagy pizza kb. 32 cm átmérőjű. Az „ÚJ" jelölésű és a csak 32
-            cm-es méretben kapható tételeket külön jelöltük. Calzone formában is kérhető. <strong>Az árak a csomagolás
-              díját nem tartalmazzák: 200 Ft / pizzadoboz</strong></p>
+            cm-es méretben kapható tételeket külön jelöltük. Calzone formában is kérhető. <br>
+            <strong>
+              Az áraink a csomagolás díját nem tartalmazzák: 200 Ft / pizzadoboz. <br>
+              <br>
+              A kiszállítás díja: 400 Ft / cím</strong>
+          </p>
           <table class="pizza-table">
             <tr>
               <th>Pizza</th>
@@ -709,7 +713,7 @@
       <div class="info-box">
         <h3>Jó tudni</h3>
         <ul>
-          <li>Az árak a csomagolás díját nem tartalmazzák: 200 Ft / pizzadoboz, 200 Ft / habdoboz.</li>
+          <li>Az áraink a csomagolás díját nem tartalmazzák: 200 Ft / pizzadoboz, 200 Ft / habdoboz.</li>
           <li>Kiszállítás: 400 Ft / cím.</li>
           <li>Minden termékünk laktózt és glutént tartalmaz.</li>
           <li>Az árak változtatásának jogát fenntartjuk.</li>
@@ -735,7 +739,7 @@
               számon.</span></div>
         </div>
         <iframe class="map-frame" loading="lazy"
-          src="https://www.google.com/maps?q=K2+S%C3%B6r%C3%B6z%C5%91+%C3%A9s+Pizz%C3%A9ria%2C+T%C3%B3tkoml%C3%B3s&output=embed">
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2750.985979412057!2d20.731662576645107!3d46.409333571105215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x474448acf2b7ff2f%3A0xd9acb995d3d83c83!2zSzIgU8O2csO2esWRIMOpcyBQaXp6w6lyaWE!5e0!3m2!1sen!2shu!4v1784390111778!5m2!1sen!2shu">
         </iframe>
       </div>
     </div>
@@ -746,20 +750,7 @@
     </p>
   </footer>
 
-  <script>
-    var header = document.getElementById('siteHeader');
-    var burger = document.getElementById('burgerBtn');
-    burger.addEventListener('click', function () {
-      var isOpen = header.classList.toggle('nav-open');
-      burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
-    document.querySelectorAll('#navLinks a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        header.classList.remove('nav-open');
-        burger.setAttribute('aria-expanded', 'false');
-      });
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 
 </html>
